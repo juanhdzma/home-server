@@ -7,18 +7,21 @@ services:
     environment:
       EULA: "TRUE"
       TYPE: "MODRINTH"
-      MODRINTH_MODPACK: "sop"
+      MODRINTH_MODPACK: "/modpacks/server-pack.mrpack"
       MODRINTH_LOADER: "fabric"
       MODRINTH_DEFAULT_VERSION_TYPE: "release"
-      VERSION: "1.21.5"
+      MOTD: "§3Servidor §6casero §3con mods §4Hecho con amor ❤"
+      VERSION: "1.20.1"
       MEMORY: "8G"
       MAX_PLAYERS: "5"
       DIFFICULTY: "3"
       LEVEL: "Survival"
-      ONLINE_MODE: "FALSE"
+      # ONLINE_MODE: "FALSE" Permite jugar pirata
       OVERRIDE_SERVER_PROPERTIES: "true"
     volumes:
       - "minecraft_data:/data"
+      - ./modpacks:/modpacks:ro
+      - ./config/icon.png:/data/server-icon.png
   tailscale:
     image: tailscale/tailscale:latest
     container_name: tailscale

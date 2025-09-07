@@ -1,6 +1,7 @@
 networks:
   monitor-net:
-    driver: bridge
+    external: true
+    name: monitor-net
 
 services:
   node_exporter:
@@ -37,7 +38,8 @@ services:
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
     restart: unless-stopped
-    networks: [ monitor-net ]
+    networks:
+      - monitor-net
 
   grafana:
     image: grafana/grafana
@@ -52,16 +54,6 @@ services:
       GF_LOG_LEVEL: debug
     volumes:
       - ./grafana/provisioning:/etc/grafana/provisioning
-    restart: unless-stopped
-    networks:
-      - monitor-net
-
-  cloudflared:
-    image: cloudflare/cloudflared:2025.8.0
-    container_name: cloudflared
-    command: tunnel --no-autoupdate run
-    environment:
-      - TUNNEL_TOKEN=${CLOUDFLARED_TUNNEL_TOKEN}
     restart: unless-stopped
     networks:
       - monitor-net

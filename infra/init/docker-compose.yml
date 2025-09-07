@@ -1,0 +1,27 @@
+networks:
+  monitor-net:
+    driver: bridge
+    name: monitor-net
+
+services:
+  cloudflared:
+    image: cloudflare/cloudflared:2025.8.0
+    container_name: cloudflared
+    command: tunnel --no-autoupdate run
+    environment:
+      - TUNNEL_TOKEN=${CLOUDFLARED_TUNNEL_TOKEN}
+    restart: unless-stopped
+    networks:
+      - monitor-net
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    networks:
+      - monitor-net
+
+volumes:
+  portainer_data:
