@@ -52,12 +52,11 @@ body{
 }
 
 a{ 
-  color:var(--text); 
-  text-underline-offset:3px; 
-  text-decoration-color:color-mix(in oklab,var(--text) 35%,transparent);
+  color:var(--text);
+  text-decoration:none;
   transition:color var(--speed-fast)var(--easing), text-decoration-color var(--speed-fast)var(--easing) 
 }
-a:hover{ color:var(--accent); text-decoration-color:var(--accent) }
+a:hover{ color:var(--accent);}
 img{ max-width:100%; height:auto; display:block }
 
 .container{ max-width:var(--container); padding:0 var(--container-pad); margin:0 auto }
@@ -75,7 +74,7 @@ img{ max-width:100%; height:auto; display:block }
 .brand{ display:inline-flex; align-items:center }
 .brand-logo{ max-height:26px; filter: brightness(0) invert(1) saturate(0) opacity(.95) }
 .nav{ display:flex; gap:18px; font-size:.95rem }
-.nav a{ opacity:.9 } .nav a:hover{ opacity:1 }
+.nav-link:hover{ transform: scale(1.1); color: var(--text)}
 @media (max-width:1060px){ .nav{ display:none } }
 
 /* =========================

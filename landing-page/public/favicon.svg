@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <!-- Fondo morado -->
+  <rect width="512" height="512" fill="#6a5acd"/>
+  <!-- Letra N en blanco -->
+  <text x="50%" y="50%" text-anchor="middle" dominant-baseline="central"
+        font-family="Inter, Arial, sans-serif"
+        font-size="320" font-weight="700"
+        fill="white">
+    N
+  </text>
+</svg>

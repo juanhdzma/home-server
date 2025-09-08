@@ -5,7 +5,7 @@ import { useEffect, useRef, useCallback, useLayoutEffect } from "react";
    ========================= */
 
 // Logo principal (un solo asset; en oscuro lo vuelvo blanco con CSS filter)
-export const LOGO_URL = "/assets/nufi.png";
+export const LOGO_URL = "./nufi.png";
 
 // Títulos de secciones
 export const SECTION_TITLES = {
@@ -159,10 +159,10 @@ export const PROJECTS = [
 
 // Logos experiencia
 const EXPERIENCE_LOGOS = [
-    { id: "scotiabank", alt: "Scotiabank Colpatria", src: "/assets/scotia.png" },
-    { id: "nufi", alt: "Nufi", src: "/assets/nufi.png" },
-    { id: "meli", alt: "Mercado Libre", src: "/assets/meli.webp" },
-    { id: "coordi", alt: "Cooordinadora", src: "/assets/coordi.png" },
+    { id: "scotiabank", alt: "Scotiabank Colpatria", src: "./scotia.png" },
+    { id: "nufi", alt: "Nufi", src: "./nufi.png" },
+    { id: "meli", alt: "Mercado Libre", src: "./meli.webp" },
+    { id: "coordi", alt: "Cooordinadora", src: "./coordi.png" },
 ];
 
 /* =========================
@@ -447,10 +447,10 @@ export default function App() {
                         <img className="brand-logo" src={LOGO_URL} alt="Nufi" />
                     </a>
                     <nav className="nav">
-                        <a href="#proyectos">Proyectos</a>
-                        <a href="#herramientas">Herramientas</a>
-                        <a href="#sobre-mi">Sobre mí</a>
-                        <a href="#contacto">Contacto</a>
+                        <a className="nav-link" href="#proyectos">Proyectos</a>
+                        <a className="nav-link" href="#herramientas">Herramientas</a>
+                        <a className="nav-link" href="#sobre-mi">Sobre mí</a>
+                        <a className="nav-link" href="#contacto">Contacto</a>
                     </nav>
                 </div>
             </header>
@@ -599,7 +599,7 @@ export default function App() {
                             </div>
                             <div className="cc-content">
                                 <h4>Email</h4>
-                                <p className="cc-url">info [at] nufi [dot] com [dot] co</p>
+                                <p className="cc-url">info<span>@</span>nufi<span>.</span>com<span>.</span>co</p>
                             </div>
                         </a>
 
