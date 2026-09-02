@@ -1,0 +1,17 @@
+services:
+  moni:
+    image: ghcr.io/juanhdzma/moni:latest
+    container_name: moni
+    restart: unless-stopped
+
+    volumes:
+      - db:/app/backend/data
+    networks:
+      - infra_proxy
+
+networks:
+  infra_proxy:
+    external: true
+
+volumes:
+  db:
