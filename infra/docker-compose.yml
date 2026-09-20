@@ -1,0 +1,51 @@
+services:
+  nginx-proxy-manager:
+    image: jc21/nginx-proxy-manager:latest
+    container_name: nginx-proxy-manager
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "81:81"
+    volumes:
+      - npm_data:/data
+      - npm_letsencrypt:/etc/letsencrypt
+    networks:
+      - proxy
+
+  dns:
+    container_name: dns
+    image: pihole/pihole:latest
+    environment:
+      TZ: "America/Bogota"
+      FTLCONF_webserver_api_password: "${ADMIN_PASSWORD}"
+      FTLCONF_dns_listeningMode: "ALL"
+      FTLCONF_misc_dnsmasq_lines: |-
+        filter-AAAA
+        filter-rr=65,64
+    volumes:
+      - dns_pihole:/etc/pihole
+    networks:
+      dns_macvlan:
+        ipv4_address: 192.168.78.251
+      proxy:
+    restart: unless-stopped
+
+networks:
+  dns_macvlan:
+    driver: macvlan
+    driver_opts:
+      parent: enp1s0
+    ipam:
+      config:
+        - subnet: 192.168.78.0/24
+          gateway: 192.168.78.1
+          ip_range: 192.168.78.251/32
+  proxy:
+    name: infra_proxy
+    driver: bridge
+
+volumes:
+  dns_pihole:
+  npm_data:
+  npm_letsencrypt:
