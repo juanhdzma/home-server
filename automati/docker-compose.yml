@@ -1,0 +1,26 @@
+services:
+  automati:
+    image: ghcr.io/juanhdzma/automati:latest
+    container_name: automati
+    restart: unless-stopped
+    environment:
+      HA_URL: ${HA_URL}
+      HOME_TOKEN: ${HOME_TOKEN}
+      DB_PATH: /data/automati.db
+    volumes:
+      - db:/data
+    networks:
+      - infra_proxy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+networks:
+  infra_proxy:
+    external: true
+
+volumes:
+  db:
