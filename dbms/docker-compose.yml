@@ -1,0 +1,16 @@
+services:
+  libredb-studio:
+    container_name: libredb
+    image: ghcr.io/libredb/libredb-studio:latest
+    restart: unless-stopped
+    volumes:
+      - libredb_data:/app/data
+    networks:
+      - infra_proxy
+
+networks:
+  infra_proxy:
+    external: true
+
+volumes:
+  libredb_data:
