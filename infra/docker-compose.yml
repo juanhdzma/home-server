@@ -8,8 +8,8 @@ services:
       - "443:443"
       - "81:81"
     volumes:
-      - npm_data:/data
-      - npm_letsencrypt:/etc/letsencrypt
+      - npm:/data
+      - certificates:/etc/letsencrypt
     networks:
       - proxy
 
@@ -24,7 +24,7 @@ services:
         filter-AAAA
         filter-rr=65,64
     volumes:
-      - dns_pihole:/etc/pihole
+      - dns:/etc/pihole
     networks:
       dns_macvlan:
         ipv4_address: 192.168.78.251
@@ -46,6 +46,6 @@ networks:
     driver: bridge
 
 volumes:
-  dns_pihole:
-  npm_data:
-  npm_letsencrypt:
+  dns:
+  npm:
+  certificates:
