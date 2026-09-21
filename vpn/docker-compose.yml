@@ -6,6 +6,7 @@ services:
     environment:
       WG_HOST: ${WG_HOST:?WG_HOST is required}
       PASSWORD_HASH: ${PASSWORD_HASH:?PASSWORD_HASH is required}
+      WG_DEFAULT_DNS: 10.42.42.53
       WG_PERSISTENT_KEEPALIVE: 25
     cap_add:
       - NET_ADMIN

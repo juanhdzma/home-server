@@ -29,6 +29,8 @@ services:
       dns_macvlan:
         ipv4_address: 192.168.78.251
       proxy:
+      vpn:
+        ipv4_address: 10.42.42.53
     restart: unless-stopped
 
 networks:
@@ -44,6 +46,9 @@ networks:
   proxy:
     name: infra_proxy
     driver: bridge
+  vpn:
+    external: true
+    name: vpn_wg
 
 volumes:
   dns:
