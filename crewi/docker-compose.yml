@@ -1,0 +1,11 @@
+services:
+  crewi:
+    image: ghcr.io/juanhdzma/crewi:latest
+    container_name: crewi
+    restart: unless-stopped
+    networks:
+      - infra_proxy
+
+networks:
+  infra_proxy:
+    external: true
