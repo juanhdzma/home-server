@@ -1,5 +1,6 @@
 .env
 stack.env
+pendiente.md
 .DS_Store
 
 node_modules/
