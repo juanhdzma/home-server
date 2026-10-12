@@ -97,7 +97,10 @@ sudo ufw allow 5353/udp
 sudo ufw allow 80/tcp
 sudo ufw allow 443/tcp
 sudo ufw enable
+sudo ufw logging off
 ```
+
+El logging va apagado porque el multicast de la LAN genera unas 140 líneas `UFW BLOCK` por hora y se come el tope de journald.
 
 Los puertos publicados por Docker y el DNS de Pi-hole en macvlan no pasan por UFW cuando el tráfico viene de la LAN, la VPN u otra network de Docker. La excepción es un container que llama a la IP del host en un puerto publicado por otro container de su misma network: Docker no le aplica el DNAT y el paquete sí llega a UFW. Es el caso de `automati`, que está en `infra_proxy` igual que NPM y consume `https://home.nufi.com.co`; por eso 80 y 443 llevan regla.
 
