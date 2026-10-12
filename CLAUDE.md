@@ -11,5 +11,6 @@ Repo de infra: un folder por stack, cada uno con su `docker-compose.yml` para de
 
 - Cada service debe declarar un `container_name` explícito.
 - Cada service debe conectarse a la network externa `infra_proxy`, excepto los que usan `network_mode: host`.
+- Cada service debe tener un healthcheck. Si la imagen ya trae `HEALTHCHECK`, no se repite en el compose; si no, se declara bajo `healthcheck:` con un comando que exista dentro de la imagen.
 - Los datos persistentes deben usar named volumes declarados bajo `volumes:` sin `name:`. Preferí el nombre lógico más corto que siga siendo claro, sin repetir el contexto que Compose ya agrega con el prefijo del stack.
 - Cada stack que use variables de entorno debe incluir un `example.env` versionado con valores de ejemplo y un `stack.env` ignorado con los valores reales de deploy.
