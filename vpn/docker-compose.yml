@@ -34,12 +34,8 @@ services:
 
 networks:
   wg:
-    driver: bridge
-    enable_ipv6: true
-    ipam:
-      config:
-        - subnet: 10.42.42.0/24
-        - subnet: fdcc:ad94:bacf:61a3::/64
+    external: true
+    name: vpn_wg
   infra_proxy:
     external: true
 
