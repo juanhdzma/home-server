@@ -12,6 +12,12 @@ services:
       - certificates:/etc/letsencrypt
     networks:
       - proxy
+    healthcheck:
+      test: ["CMD", "/usr/bin/check-health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
 
   dns:
     container_name: dns
