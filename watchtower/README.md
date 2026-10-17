@@ -1,14 +1,14 @@
 # watchtower
 
-Revisa todos los containers del host cada día a las 2:00 am (hora Colombia). Si hay una imagen nueva, la baja, recrea el container y borra la imagen anterior. Avisa por Telegram solo cuando algo se actualizó o falló.
+Checks every container on the host each day at 02:00 (Colombia time). When there's a new image, it pulls it, recreates the container and deletes the old image. It reports to Telegram only when something was updated or failed.
 
-## Forzar una corrida
+## Force a run
 
 ```sh
 curl -X POST -H "Authorization: Bearer <token>" "https://watchtower.nufi.com.co/v1/update?async=true"
 ```
 
-- `<token>` es el valor de `WATCHTOWER_HTTP_API_TOKEN` en las env vars del stack.
-- `async=true` hace que responda `202` de inmediato. Sin él la respuesta se corta si la corrida actualiza a NPM, que es el proxy del request.
-- Para actualizar un solo container: `?async=true&container=fondi`.
-- El dominio solo resuelve dentro de la LAN o por la VPN.
+- `<token>` is the value of `WATCHTOWER_HTTP_API_TOKEN` in the stack's environment variables.
+- `async=true` makes it answer `202` right away. Without it, the response is cut off if the run updates Nginx Proxy Manager, which proxies the request.
+- To update a single container: `?async=true&container=fondi`.
+- The domain only resolves from the LAN or the VPN.
