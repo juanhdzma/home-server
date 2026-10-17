@@ -54,35 +54,18 @@ Solo aplica a containers creados después, por eso va antes de levantar Portaine
 
 ## Portainer
 
-Es el único container que no se despliega como stack de Portainer. Su compose vive en `~/infra/portainer/docker-compose.yml`:
-
-```yaml
-services:
-  portainer:
-    image: portainer/portainer-ce:latest
-    container_name: portainer
-    restart: always
-    security_opt:
-      - no-new-privileges:true
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - init_portainer_data:/data
-    ports:
-      - "9443:9443"
-      - "9000:9000"
-      - "8000:8000"
-
-volumes:
-  init_portainer_data:
-    external: true
-```
+Es el único container que no se despliega como stack de Portainer. Su compose está en [`portainer/docker-compose.yml`](portainer/docker-compose.yml) y en el server vive en `~/infra/portainer/` (la carpeta tiene que llamarse `portainer` para que Compose nombre el volume `portainer_data`):
 
 ```sh
-docker volume create init_portainer_data
+docker network create infra_proxy
+mkdir -p ~/infra/portainer
+cp portainer/docker-compose.yml ~/infra/portainer/
 docker compose -f ~/infra/portainer/docker-compose.yml up -d
 ```
 
-Los demás stacks se crean en Portainer como git stacks apuntando a este repo, uno por folder. El primero es `infra`: crea las networks `infra_proxy` y `vpn_wg`, que los demás usan como externas.
+La network `infra_proxy` se crea a mano porque Portainer la necesita antes de que exista cualquier stack; todos los stacks, `infra` incluido, la declaran como externa. Usa el tag `alpine` porque la imagen default no trae shell ni `wget` para el healthcheck. NPM le llega por nombre (`portainer:9000`). Solo publica `9443`, como acceso directo que no depende de NPM.
+
+Los demás stacks se crean en Portainer como git stacks apuntando a este repo, uno por folder. El primero es `infra`: crea la network `vpn_wg`, que `vpn` usa como externa.
 
 ## Firewall
 
