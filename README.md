@@ -29,8 +29,7 @@
 
 **Home**
 
-- Home Assistant with Tuya, Cast and Android TV devices
-- automati, which talks to Home Assistant through its API
+- Lights, fan, curtain and TV controlled directly on the LAN through automati, with timers
 
 **Operations**
 
@@ -40,6 +39,7 @@
 
 **Apps**
 
+- automati, an HTTP API for personal automations: the house, Telegram messages and Scriptable widgets
 - fondi, moni and crewi, built and published from their own repos
 - libredb as a web database client
 
@@ -66,7 +66,6 @@ Everything runs on one host, `192.168.78.250`. Each stack is a git stack in Port
 | `infra` | Nginx Proxy Manager, Pi-hole |
 | `portainer` | Portainer, applied by hand |
 | `vpn` | wg-easy (WireGuard) |
-| `home_assistant` | Home Assistant, on the host network |
 | `monitoring` | beszel and its agent |
 | `watchtower` | Watchtower |
 | `dbms` | libredb |
