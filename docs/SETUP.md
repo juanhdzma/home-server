@@ -98,29 +98,25 @@ Then deploy every other folder as a stack, one by one. Start with `infra`: it cr
    | Environment variables | **Load variables from .env file** and pick that folder's `stack.env` |
 
 3. **Deploy the stack.** Images come from Docker Hub or `ghcr.io/juanhdzma`, and all of them are public, so no registry credentials are needed.
-4. If it has a web UI, add a proxy host in Nginx Proxy Manager: the domain, scheme `http`, and as forward host the `container_name` with its internal port (e.g. `fondi`, `8000`). Stacks on `infra_proxy` are reached by name. Home Assistant uses the host network, so its proxy host points to `192.168.78.250:8123` instead.
+4. If it has a web UI, add a proxy host in Nginx Proxy Manager: the domain, scheme `http`, and as forward host the `container_name` with its internal port (e.g. `fondi`, `8000`). Stacks on `infra_proxy` are reached by name.
 
 To change a stack later, push the change and use **Pull and redeploy** in Portainer. Its environment variables stay as they were.
 
 ## Firewall
 
-UFW denies incoming traffic by default. Only services listening directly on the host need a rule: SSH and Home Assistant (`network_mode: host`), plus its mDNS discovery.
+UFW denies incoming traffic by default. Only services listening directly on the host need a rule, and today that's just SSH.
 
 ```sh
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
 sudo ufw allow 22/tcp
-sudo ufw allow 8123/tcp
-sudo ufw allow 5353/udp
-sudo ufw allow 80/tcp
-sudo ufw allow 443/tcp
 sudo ufw enable
 sudo ufw logging off
 ```
 
 - **Logging is off** because LAN multicast produces about 140 `UFW BLOCK` lines an hour and eats the journald cap.
-- **Ports published by Docker skip UFW**, and so does Pi-hole's macvlan DNS, when traffic comes from the LAN, the VPN or another Docker network.
-- **The exception is a container calling the host IP** on a port published by another container on its same network: Docker doesn't apply the DNAT and the packet reaches UFW. That's the case of `automati`, which shares `infra_proxy` with Nginx Proxy Manager and calls `https://home.nufi.com.co`, so `80` and `443` have rules.
+- **Ports published by Docker skip UFW**, and so does Pi-hole's macvlan DNS, when traffic comes from the LAN, the VPN or another Docker network. That's why `80`, `443`, `9443` and the rest need no rule.
+- **The exception is a container calling the host IP** on a port published by another container on its same network: Docker doesn't apply the DNAT and the packet reaches UFW, where it's dropped. Containers on `infra_proxy` call each other by `container_name` instead.
 
 ## Key-only SSH
 

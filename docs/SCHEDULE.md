@@ -1,6 +1,6 @@
 # Scheduled tasks
 
-What runs on its own and was set up by hand. Ubuntu defaults and the internal cron jobs of each image (Pi-hole, Nginx Proxy Manager, Home Assistant, Portainer) aren't listed.
+What runs on its own and was set up by hand. Ubuntu defaults and the internal cron jobs of each image (Pi-hole, Nginx Proxy Manager, Portainer) aren't listed.
 
 The host runs in UTC. Times are Colombia time (UTC-5), with UTC in parentheses.
 
