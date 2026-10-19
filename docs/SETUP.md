@@ -157,6 +157,7 @@ sudo systemctl restart systemd-journald
 Outside the server, on the router (`192.168.78.1`):
 
 - **Port forward** of `51820/udp` to `192.168.78.250`, for WireGuard.
-- **DHCP** handing out `192.168.78.251` (Pi-hole) as the network's DNS.
+- **DHCP** handing out `192.168.78.251` (Pi-hole) as the network's DNS, with the pool limited to `192.168.78.2`–`192.168.78.249` so it never hands out the server's or Pi-hole's static IPs.
+- **DHCP reservations** for the devices automati controls by IP: fan `192.168.78.2`, curtain `192.168.78.3` and TV `192.168.78.25`. A new device needs its own reservation.
 
 The `*.nufi.com.co` domains resolve in public DNS to `192.168.78.250`, a private IP: they only work from the LAN or the VPN, and need no port forward for `80` or `443`.
